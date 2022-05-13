@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimeGenCS", "PrimeGenCS\PrimeGenCS.csproj", "{6E3020F3-73AA-4059-895B-EAE0091BA7A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimeGen.UnitTests", "PrimeGen.UnitTests\PrimeGen.UnitTests.csproj", "{A202704F-CFF7-4445-B76C-90CE3FAC553E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{6E3020F3-73AA-4059-895B-EAE0091BA7A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E3020F3-73AA-4059-895B-EAE0091BA7A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E3020F3-73AA-4059-895B-EAE0091BA7A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A202704F-CFF7-4445-B76C-90CE3FAC553E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A202704F-CFF7-4445-B76C-90CE3FAC553E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A202704F-CFF7-4445-B76C-90CE3FAC553E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A202704F-CFF7-4445-B76C-90CE3FAC553E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BDBD6EDA-2923-4DD5-971A-6A37555A94A6}
 	EndGlobalSection
 EndGlobal
