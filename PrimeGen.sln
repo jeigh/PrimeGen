@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimeGenCS", "PrimeGenCS\PrimeGenCS.csproj", "{6E3020F3-73AA-4059-895B-EAE0091BA7A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrimeGen.Console", "PrimeGenCore\PrimeGen.Console.csproj", "{91F8893C-7F2D-412B-84D2-2A6D98D4D0FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimeGen.UnitTests", "PrimeGen.UnitTests\PrimeGen.UnitTests.csproj", "{A202704F-CFF7-4445-B76C-90CE3FAC553E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrimeGen.Implementation", "PrimeGen.Implementation\PrimeGen.Implementation.csproj", "{CAD23ADE-EC4E-430B-A36B-96C8F0F6C191}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrimeGen.DataAccess", "PrimeGen.DataAccess\PrimeGen.DataAccess.csproj", "{DE6D8088-3E74-4A57-9D90-F16F1966C083}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrimeGen.TransferObjects", "PrimeGen.TransferObjects\PrimeGen.TransferObjects.csproj", "{BD091408-239B-46C3-8AB2-4176A46B4AE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +17,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6E3020F3-73AA-4059-895B-EAE0091BA7A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6E3020F3-73AA-4059-895B-EAE0091BA7A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6E3020F3-73AA-4059-895B-EAE0091BA7A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6E3020F3-73AA-4059-895B-EAE0091BA7A0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A202704F-CFF7-4445-B76C-90CE3FAC553E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A202704F-CFF7-4445-B76C-90CE3FAC553E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A202704F-CFF7-4445-B76C-90CE3FAC553E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A202704F-CFF7-4445-B76C-90CE3FAC553E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91F8893C-7F2D-412B-84D2-2A6D98D4D0FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91F8893C-7F2D-412B-84D2-2A6D98D4D0FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91F8893C-7F2D-412B-84D2-2A6D98D4D0FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91F8893C-7F2D-412B-84D2-2A6D98D4D0FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAD23ADE-EC4E-430B-A36B-96C8F0F6C191}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAD23ADE-EC4E-430B-A36B-96C8F0F6C191}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAD23ADE-EC4E-430B-A36B-96C8F0F6C191}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAD23ADE-EC4E-430B-A36B-96C8F0F6C191}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE6D8088-3E74-4A57-9D90-F16F1966C083}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE6D8088-3E74-4A57-9D90-F16F1966C083}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE6D8088-3E74-4A57-9D90-F16F1966C083}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE6D8088-3E74-4A57-9D90-F16F1966C083}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD091408-239B-46C3-8AB2-4176A46B4AE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD091408-239B-46C3-8AB2-4176A46B4AE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD091408-239B-46C3-8AB2-4176A46B4AE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD091408-239B-46C3-8AB2-4176A46B4AE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

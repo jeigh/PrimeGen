@@ -1,18 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.5" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PrimeGen.TransferObjects\PrimeGen.TransferObjects.csproj" />
+    <ProjectReference Include="..\PrimeGen.DataAccess\PrimeGen.DataAccess.csproj" />
+    <ProjectReference Include="..\PrimeGen.Implementation\PrimeGen.Implementation.csproj" />
   </ItemGroup>
 
 </Project>
