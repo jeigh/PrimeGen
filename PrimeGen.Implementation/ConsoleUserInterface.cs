@@ -21,5 +21,20 @@ namespace PrimeGen.Implementation
             }
             
         }
+
+
+        public long UpdateDashboard(long elapsedMilliseconds, long primeCount, BigInteger potentialPrime)
+        {
+            long elapsedSeconds = elapsedMilliseconds / 1000;
+            long primesPerCount = elapsedSeconds == 0 ? primeCount : primeCount / elapsedSeconds;
+            BigInteger intPerPrime = elapsedSeconds == 0 ? primeCount : BigInteger.Divide(potentialPrime, primeCount);
+            Console.Out.WriteLineAsync($"Prime Found: {potentialPrime},\tTotal Primes Found: {primeCount},\tSeconds Elapsed: {elapsedSeconds},\tInts per primes: {intPerPrime}");
+            return elapsedSeconds;
+        }
+
+
+
+
+
     }
 }

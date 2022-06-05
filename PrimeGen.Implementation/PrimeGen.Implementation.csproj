@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.ServiceModel.Primitives" Version="4.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\PrimeGen.TransferObjects\PrimeGen.TransferObjects.csproj" />
   </ItemGroup>
 

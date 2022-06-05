@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
+using System.Collections.Generic;
 
 namespace PrimeGen.Implementation
 {
@@ -23,8 +24,8 @@ namespace PrimeGen.Implementation
         {
             bool genFromScratch = !_dataAccess.GetSmallPrimes().Any();
 
-            List<BigInteger> bigPrimes = new List<BigInteger>();
-            List<long> smallPrimes = new List<long>();
+            SynchronizedCollection<BigInteger> bigPrimes = new SynchronizedCollection<BigInteger>();
+            SynchronizedCollection<long> smallPrimes = new SynchronizedCollection<long>();
 
             BigInteger potentialPrime = 1;
 
@@ -36,8 +37,19 @@ namespace PrimeGen.Implementation
             }
             else
             {
-                bigPrimes = (from prime in _dataAccess.GetBigPrimes() select prime.PrimeValue).ToList();
-                smallPrimes = (from prime in _dataAccess.GetSmallPrimes() select prime.PrimeValue).ToList();
+                //todo: convert bigprime to synchronizedCollection like we did with smallprimes
+                var bigPrimesTemp = (from prime in _dataAccess.GetBigPrimes() select prime.PrimeValue).ToList();
+                foreach(BigInteger prime in bigPrimesTemp)
+                {
+                    bigPrimes.Add(prime);
+                }
+
+
+                List<long> tempSmallPrimes = (from prime in _dataAccess.GetSmallPrimes() select prime.PrimeValue).ToList();
+                foreach(long smallPrime in tempSmallPrimes)
+                {
+                    smallPrimes.Add(smallPrime);
+                }
 
                 if (smallPrimes.Any()) potentialPrime = smallPrimes.Max();
                 if (bigPrimes.Any()) potentialPrime = bigPrimes.Max();
@@ -46,21 +58,33 @@ namespace PrimeGen.Implementation
             RunPrimeGenerationLoop(potentialPrime, smallPrimes, bigPrimes, sw, ref previousSecondsElapsed);
         }
 
-        private void RunPrimeGenerationLoop(BigInteger potentialPrime, IList<long> smallPrimes, IList<BigInteger> bigPrimes, Stopwatch sw, ref long previousSecondsElapsed)
+        private void RunPrimeGenerationLoop(BigInteger potentialPrime, SynchronizedCollection<long> smallPrimes, SynchronizedCollection<BigInteger> bigPrimes, Stopwatch sw, ref long previousSecondsElapsed)
         {
-            while (this.MaxPrime == -1 || potentialPrime + 1 <= this.MaxPrime)
+            var waitable = new List<Task>();
+            while (this.MaxPrime == -1 || potentialPrime + 1 <= this.MaxPrime || potentialPrime >= potentialPrime + 1000)
             {
                 potentialPrime += 2;
 
                 if (long.TryParse(potentialPrime.ToString(), out long potentialPrimeLong))
-                    this.HandleSmallPrime(smallPrimes, potentialPrimeLong, sw, ref previousSecondsElapsed);
-                else
+                {
+                    Task myTask = new Task(delegate { this.HandleSmallPrime(smallPrimes, potentialPrimeLong, sw); }); 
+                    myTask.Start();
+                    waitable.Add(myTask);
+                }
+
+                
+                
+                    
+                else  // todo: use threadpools?
                     this.HandleBigIntegerPrime(smallPrimes, bigPrimes, potentialPrime, sw, ref previousSecondsElapsed);
             }
+
+            Task.WaitAll(waitable.ToArray());
+
         }
 
 
-        public void HandleBigIntegerPrime(IEnumerable<long> smallPrimes, IList<BigInteger> bigPrimes, BigInteger potentialPrime, Stopwatch sw, ref long previousSecondsElapsed)
+        public void HandleBigIntegerPrime(SynchronizedCollection<long> smallPrimes, SynchronizedCollection<BigInteger> bigPrimes, BigInteger potentialPrime, Stopwatch sw, ref long previousSecondsElapsed)
         {
             BigInteger squareRoot = GetSquareRoot(potentialPrime);
 
@@ -88,7 +112,25 @@ namespace PrimeGen.Implementation
 
         }
 
-        public void HandleSmallPrime(IList<long> smallPrimes, long potentialPrimeLong, Stopwatch sw, ref long previousSecondsElapsed)
+        public void HandleSmallPrime(SynchronizedCollection<long> smallPrimes, long potentialPrimeLong, Stopwatch sw)
+        {
+            long squareRoot = GetSquareRoot(potentialPrimeLong);
+            bool isPrime = IsThisOnePrime(smallPrimes, new List<BigInteger>(), potentialPrimeLong, squareRoot);
+
+            if (isPrime)
+            {
+                _dataAccess.AddSmallPrime(new TransferObjects.SmallPrime(potentialPrimeLong));
+                smallPrimes.Add(potentialPrimeLong);
+
+                long primeCount = smallPrimes.Count();
+
+                if (sw != null)
+                    _ui.UpdateDashboard(sw.ElapsedMilliseconds, primeCount, potentialPrimeLong);
+            }
+        }
+
+
+        public void HandleSmallPrime(SynchronizedCollection<long> smallPrimes, long potentialPrimeLong, Stopwatch sw, ref long previousSecondsElapsed)
         {
             long squareRoot = GetSquareRoot(potentialPrimeLong);
 
@@ -106,14 +148,14 @@ namespace PrimeGen.Implementation
             }
         }
 
-        public bool IsThisOnePrime(IEnumerable<long> smallPrimes, IEnumerable<BigInteger> bigPrimes, BigInteger potentialPrime, BigInteger squareRoot)
+        public bool IsThisOnePrime(SynchronizedCollection<long> smallPrimes, IList<BigInteger> bigPrimes, BigInteger potentialPrime, BigInteger squareRoot)
         {
-            foreach (long prime in smallPrimes.ToList())
+            foreach (long prime in smallPrimes)
             {
                 if (prime > squareRoot) return true;
                 if (potentialPrime % prime == 0) return false;
             }
-            foreach(BigInteger prime in bigPrimes.ToList())
+            foreach(BigInteger prime in bigPrimes)
             {
                 if (prime > squareRoot) return true;
                 if (potentialPrime % prime == 0) return false;

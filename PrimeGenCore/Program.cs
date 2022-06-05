@@ -39,7 +39,7 @@ using System.Diagnostics;
 
 SqlClientDataAccess _dataAccess = new PrimeGen.DataAccess.SqlClientDataAccess();
 //todo: make this configurable...
-_dataAccess.ConnectionString = "Server=localhost;Database=PrimeGen;Trusted_Connection=True;MultipleActiveResultSets=true";
+_dataAccess.ConnectionString = "Server=(localdb)\\Mssqllocaldb;Database=PrimeGen;Trusted_Connection=True;MultipleActiveResultSets=true";
 
 PrimeLogic _logic = new PrimeLogic(_dataAccess);
 
