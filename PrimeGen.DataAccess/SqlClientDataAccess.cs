@@ -17,8 +17,8 @@ namespace PrimeGen.DataAccess
 
         public void AddSmallPrime(SmallPrime prime)
         {
-            var insertStatement = "INSERT SmallPrime (PrimeValue) values (@PrimeValue);";
-            var theCommand = new System.Data.SqlClient.SqlCommand(insertStatement, new SqlConnection(ConnectionString));
+            string? insertStatement = "if not exists (select PrimeValue from smallprime where primeValue = @primeValue) INSERT SmallPrime (PrimeValue) values (@PrimeValue);";
+            SqlCommand? theCommand = new System.Data.SqlClient.SqlCommand(insertStatement, new SqlConnection(ConnectionString));
 
             theCommand.Parameters.AddWithValue("PrimeValue", prime.PrimeValue);
             
